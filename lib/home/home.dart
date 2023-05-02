@@ -1,5 +1,8 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 
+import 'package:flutter/material.dart';
+import 'package:telepeaje_app/pages/cars.dart';
+import 'package:telepeaje_app/pages/principal.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -8,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -26,39 +29,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  int selectionIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    final colorSchema = Theme.of(context).colorScheme;
+
+    final screen = [const PagePrincipal(), const PageCars()];
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      // appBar: AppBar(
+      //   backgroundColor: colorCab,
+      //   title: Text(
+      //     "Hola XAVIER",
+      //     style: styteText(20, colorText),
+      //   ),
+      // ),
+      body: screen[selectionIndex],
+      bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.shifting,
+          currentIndex: selectionIndex,
+          onTap: (value) {
+            setState(() {
+              selectionIndex = value;
+            });
+          },
+          elevation: 0,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home),
+              label: "Resumen",
+              backgroundColor: colorSchema.primary,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            BottomNavigationBarItem(
+              icon: Icon(Icons.drive_eta_outlined),
+              activeIcon: Icon(Icons.drive_eta_sharp),
+              label: "Vehiculos",
+              backgroundColor: colorSchema.tertiary,
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), 
+          ]),
     );
   }
 }
