@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:telepeaje_app/pages/cars.dart';
+import 'package:telepeaje_app/pages/movimientos.dart';
 import 'package:telepeaje_app/pages/principal.dart';
 
 class MyApp extends StatelessWidget {
@@ -35,7 +36,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final colorSchema = Theme.of(context).colorScheme;
 
-    final screen = [const PagePrincipal(), const PageCars()];
+    final screen = [
+      const PagePrincipal(),
+      const PageCars(),
+      const PageMovimiento()
+    ];
 
     return Scaffold(
       // appBar: AppBar(
@@ -47,28 +52,35 @@ class _MyHomePageState extends State<MyHomePage> {
       // ),
       body: screen[selectionIndex],
       bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.shifting,
-          currentIndex: selectionIndex,
-          onTap: (value) {
-            setState(() {
-              selectionIndex = value;
-            });
-          },
-          elevation: 0,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home),
-              label: "Resumen",
-              backgroundColor: colorSchema.primary,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.drive_eta_outlined),
-              activeIcon: Icon(Icons.drive_eta_sharp),
-              label: "Vehiculos",
-              backgroundColor: colorSchema.tertiary,
-            ),
-          ]),
+        type: BottomNavigationBarType.shifting,
+        currentIndex: selectionIndex,
+        onTap: (value) {
+          setState(() {
+            selectionIndex = value;
+          });
+        },
+        elevation: 0,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_outlined),
+            activeIcon: Icon(Icons.home),
+            label: "Resumen",
+            backgroundColor: colorSchema.primary,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.drive_eta_outlined),
+            activeIcon: Icon(Icons.drive_eta_sharp),
+            label: "Vehiculos",
+            backgroundColor: colorSchema.tertiary,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.description_outlined),
+            activeIcon: Icon(Icons.description),
+            label: "Vehiculos",
+            backgroundColor: colorSchema.tertiary,
+          ),
+        ],
+      ),
     );
   }
 }
